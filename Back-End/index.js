@@ -5,7 +5,7 @@
  * Versão: 1.0
  *********************/
 const express = require('express')
-const cors =require('cors')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 
 const app = express()
@@ -23,52 +23,53 @@ app.use((request, response, next) => {
     next()
 })
 
-app.get('/v1/lion-school/cursos/', cors(), async function(request, response, next){
+app.get('/v1/lion-school/cursos/', cors(), async function (request, response, next) {
 
     let cursos = funcoes.getCursos()
 
-    if(cursos){
+    if (cursos) {
         response.status(200)
         response.json(cursos)
-    } else{
+    } else {
         response.status(500)
     }
 })
 
-app.get('/v1/lion-school/alunos', cors(), async function(request, response, next){
+app.get('/v1/lion-school/alunos/', cors(), async function (request, response, next) {
 
     let alunos = funcoes.getAlunosMatriculados()
 
-    if(alunos){
+    if (alunos) {
         response.status(200)
         response.json(alunos)
-    } else{
+    } else {
         response.status(500)
     }
 })
 
-app.get('/v1/lion-school/alunos/:matricula', cors(), async function(request, response, next){
+app.get('/v1/lion-school/alunos/:matricula', cors(), async function (request, response, next) {
     let statusCode
     let dadosAluno = {}
 
     let matriculaAluno = request.params.matricula
 
-    if(matriculaAluno == '' || matriculaAluno == undefined || isNaN(matriculaAluno)){
+    if (matriculaAluno == '' || matriculaAluno == undefined || isNaN(matriculaAluno)) {
         statusCode = 400
         dadosAluno.message = 'Não foi possivel processar pois os dados de entrada (matricula) que foram enviados não corresponde ao exigido, confira o valor, pois não pode ser vazio e precisam ser numeros '
-    }else{
-        //Chama a função para retornar os dados do estado
+    } else {
         let aluno = funcoes.getDetalhesAluno(matriculaAluno)
-
-        if(aluno){
+        
+        if (aluno) {
             statusCode = 200
             dadosAluno = aluno
-        }else{
-            statusCode = 404
+        } else {
+            response.status(500)
         }
     }
+        response.status(statusCode)
+        response.json(dadosAluno)
 })
 
-app.listen(8080, function(){
+app.listen(8080, function () {
     console.log('servidor aguardando requisições na porta 8080.')
 })
