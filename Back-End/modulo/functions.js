@@ -94,7 +94,7 @@ const getAlunosPorCurso = function (cursoEscolhido) {
 
     listaAlunos.alunos.forEach(function (aluno) {
         aluno.curso.forEach(function (curso) {
-            if (curso.sigla.toUpperCase() == cursoSigla) {
+            if (curso.sigla.toUpperCase() == cursoSigla.toUpperCase()) {
                 let jsonAluno = {}
                 jsonAluno.foto = aluno.foto,
                     jsonAluno.nome = aluno.nome,
