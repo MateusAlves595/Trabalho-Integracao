@@ -124,7 +124,7 @@ const getAlunosPorStatus = function (statusAluno) {
     let status = statusAluno
 
     listaAlunos.alunos.forEach(function (aluno) {
-        if (aluno.status.toUpperCase() == status) {
+        if (aluno.status.toUpperCase() == status.toUpperCase()) {
             let jsonAluno = {}
             jsonAluno.foto = aluno.foto,
                 jsonAluno.nome = aluno.nome,
